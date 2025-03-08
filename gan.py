@@ -60,7 +60,7 @@ print(c.shape)
 def train(epochs):
     for epoch in range(epochs):
         for idx,(real,_) in enumerate(dataloader):
-            # 训练生成器
+            # 训练判别器
             zaosheng=torch.randn(size=(batch_size,zao_size))
             fake=shengchengqi(zaosheng)
             dis_real=panbieqi(fake).view(-1)
@@ -72,7 +72,7 @@ def train(epochs):
             lossC.backward(retain_graph=True)
             optimizer_pan.step()
 
-            # 训练判别器
+            # 训练生成器
             output=panbieqi(fake).view(-1)
             lossD=criterion(output,torch.ones_like(output))
             optimizer_sheng.zero_grad()
